@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --arc-cyan: #5FBFFF;
+  --arc-cyan-dark: #3A8BCC;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-arc-cyan: var(--arc-cyan);
+  --color-arc-cyan-dark: var(--arc-cyan-dark);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Arc Docs inspired dot grid */
+.bg-grid-dots {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-mesh-gradient {
+  background: radial-gradient(at 0% 0%, rgba(95, 191, 255, 0.15) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.1) 0px, transparent 50%);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

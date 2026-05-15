@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Merchant {
+  id            String   @id @default(uuid())
+  name          String
+  walletAddress String   @unique // Circle Developer-Controlled Wallet EVM Address
+  walletId      String   @unique // Circle internal Wallet ID
+  createdAt     DateTime @default(now())
+  bills         Bill[]
+
+  @@map("merchants")
+}
+
+model Bill {
+  id         String      @id @default(uuid())
+  amount     Float
+  merchantId String
+  merchant   Merchant    @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  status     BillStatus  @default(PENDING)
+  txHash     String?     // On-chain transaction hash
+  paidAt     DateTime?
+  createdAt  DateTime    @default(now())
+
+  @@map("bills")
+}
+
+enum BillStatus {
+  PENDING
+  PAID
+  FAILED
+  EXPIRED
+}
